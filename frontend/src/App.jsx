@@ -3,18 +3,20 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Register from './auth/register';
 import Login from './auth/login';
-import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
 import CoursesPage from './components/Courses';
 import AssignmentPage from './components/Assignments';
 import AccessibilitySettings from './components/AccessibilitySettings';
-import Profile from './components/Profile';
 import Notifications from './components/Notifications';
-import HelpSupport from './components/Support';
-import Progress from './components/Progress'
-import Logout from './components/LogOut';
-import Forum from './components/Forum';
+import Progress from './components/Progress';
 import TeacherComments from './components/TeacherComments';
+
+import HelpSupport from './pages/Support';
+import Logout from './pages/LogOut'
+import Forum from './pages/Forum';
+import Profile from './pages/Profile';
+import Dashboard from './pages/Dashboard';
+
 import './index.css';
 
 function App() {

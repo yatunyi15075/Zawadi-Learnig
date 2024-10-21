@@ -1,4 +1,5 @@
-// src/components/Layout.jsx
+// src/components/Layout.jsx (Containds the sidebar)
+
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { FaTachometerAlt, FaBook, FaTasks, FaComments, FaChartBar, FaUsers, FaCog, FaLifeRing, FaBell, FaUserCircle, FaSignOutAlt } from 'react-icons/fa'; // Added icons
