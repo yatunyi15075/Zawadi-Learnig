@@ -1,8 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import landing from '../assets/landing.png';
 import logo from '../assets/logo.png';
 
 const LandingPage = () => {
+
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/register');
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* Navbar */}
@@ -22,7 +31,14 @@ const LandingPage = () => {
         </div>
         <div className="space-x-4">
           <a href="/login" className="text-purple-600">Login</a>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">Get Started</button>
+
+      <button 
+        onClick={handleGetStarted} 
+        className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700"
+      >
+        Get Started
+      </button>
+
         </div>
       </nav>
 
@@ -36,18 +52,22 @@ const LandingPage = () => {
           <p className="text-gray-700 my-6">
             Provide quality learning for your child with our platform, accessible to all children, with a special focus on the abled differently children.
           </p>
-          <button className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700">
-            Get Started
-          </button>
+
+        <button 
+        onClick={handleGetStarted} 
+        className="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700"
+      >
+        Get Started
+      </button>
         </div>
 
         {/* Right Side - Image */}
-        <div className="md:flex-1 mt-16 md:mt-0 flex justify-center">
+        <div className="md:flex-1 mt-8 md:mt-0 flex justify-center">
           <img
             src={landing} 
             alt="Child Illustration"
-            className="w-full md:w-auto md:h-auto max-w-sm"
-          />
+            className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 max-w-lg md:max-w-xl lg:max-w-2xl"
+            />
         </div>
       </div>
     </div>
