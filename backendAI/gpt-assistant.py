@@ -4,7 +4,6 @@ import pyttsx3
 import time
 
 # set OPEN AI key
-openai.api_key = "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"
 
 # initiate the text-to-speech engine
 engine = pyttsx3.init()
@@ -71,4 +70,9 @@ def main():
                                 speak_text(response)
                 elif transcription.lower() == "stop":
                     print("Exiting...")
-          
+                    break
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
