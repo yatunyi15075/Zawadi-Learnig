@@ -1,5 +1,5 @@
-// src/components/AccessibilitySettings.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AccessibilitySettings = () => {
   const [settings, setSettings] = useState({
@@ -12,16 +12,65 @@ const AccessibilitySettings = () => {
     cameraOnWhenStudying: true,
   });
 
+  const [transcribedText, setTranscribedText] = useState(''); // To display the converted text
+  const [showText, setShowText] = useState(false); // To control when to display text
+
   const handleToggle = (setting) => {
     setSettings((prevSettings) => ({
       ...prevSettings,
       [setting]: !prevSettings[setting],
     }));
+
+    if (setting === 'soundToText') {
+      handleSoundToText();
+    }
+  };
+
+  // Function to capture audio and send it for conversion
+  const handleSoundToText = () => {
+    if (!settings.soundToText) return;
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false; // We only want final results, not partial ones
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = async (event) => {
+      const audioText = event.results[0][0].transcript;
+      console.log('Captured Text:', audioText);
+
+      // Show the transcribed text for 3 seconds
+      setTranscribedText(audioText);
+      setShowText(true);
+
+      // After 3 seconds, hide the text
+      setTimeout(() => {
+        setShowText(false);
+        setTranscribedText('');
+      }, 3000);
+
+      try {
+        // Optionally send the text to the backend for further processing
+        const response = await axios.post('http://localhost:5001/api/sound-to-text', { text: audioText });
+        console.log('Backend response:', response.data);
+      } catch (error) {
+        console.error('Error sending text to backend:', error.message);
+      }
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error);
+    };
+
+    recognition.onend = () => {
+      console.log('Speech recognition ended');
+    };
   };
 
   return (
     <div className="flex-1 p-6">
-      {/* Header */}
       <header className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">AI Accessibility Features & Settings</h1>
         <div className="flex items-center">
@@ -30,13 +79,9 @@ const AccessibilitySettings = () => {
         </div>
       </header>
 
-      {/* Settings list */}
       <div className="bg-white rounded-lg shadow p-6">
         {Object.keys(settings).map((key, index) => (
-          <div
-            key={index}
-            className="flex justify-between items-center py-2 border-b last:border-b-0"
-          >
+          <div key={index} className="flex justify-between items-center py-2 border-b last:border-b-0">
             <span className="text-gray-700 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
             <div className="flex items-center">
               {key === 'adjustFontSize' && (
@@ -57,6 +102,14 @@ const AccessibilitySettings = () => {
             </div>
           </div>
         ))}
+
+        {/* Display transcribed text */}
+        {showText && (
+          <div className="mt-4 p-4 bg-gray-200 rounded-md">
+            <p className="text-xl">{transcribedText}</p>
+          </div>
+        )}
+
         <div className="flex justify-center mt-6">
           <button className="bg-purple-500 text-white px-6 py-2 rounded-full">Done</button>
         </div>
