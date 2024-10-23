@@ -10,12 +10,14 @@ import AccessibilitySettings from './components/AccessibilitySettings';
 import Notifications from './components/Notifications';
 import Progress from './components/Progress';
 import TeacherComments from './components/TeacherComments';
+import CongratulationsPage from './components/CongratulationsPage';
 
 import HelpSupport from './pages/Support';
 import Logout from './pages/LogOut'
 import Forum from './pages/Forum';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
+import VideoQuiz from './pages/VideoQuiz';
 
 import './index.css';
 
@@ -40,7 +42,9 @@ function App() {
           <Route path="forum" element={<Forum />} />
           <Route path="settings" element={<AccessibilitySettings />} />
           <Route path="support" element={<HelpSupport />} />
-          <Route path="logout" element={<Logout />} /> 
+          <Route path="logout" element={<Logout />} />
+          <Route path="video-quiz" element={<VideoQuiz />} /> 
+          <Route path="complete" element={<CongratulationsPage />} />  
         </Route>
       </Routes>
     </Router>

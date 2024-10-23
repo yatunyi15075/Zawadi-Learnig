@@ -1,8 +1,10 @@
-// src/components/CoursesPage.jsx
 import React from 'react';
 import { FaSearch, FaBell, FaCog, FaPlayCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const CoursesPage = () => {
+  const navigate = useNavigate();  // Hook to navigate programmatically
+
   const courses = [
     { id: 1, name: 'Science & Technology', grade: 'Grade 4', teacher: 'Mr. Kamau', image: 'path_to_image' },
     { id: 2, name: 'Kiswahili', grade: 'Grade 4', teacher: 'Mr. Kamau', image: 'path_to_image' },
@@ -11,6 +13,11 @@ const CoursesPage = () => {
     { id: 5, name: 'C.R.E', grade: 'Grade 4', teacher: 'Mr. Kamau', image: 'path_to_image' },
     { id: 6, name: 'Mathematics', grade: 'Grade 4', teacher: 'Mr. Kamau', image: 'path_to_image' },
   ];
+
+  // Function to navigate to video quiz page
+  const handlePlayClick = () => {
+    navigate('/dashboard/video-quiz');  // Navigate to the "/video-quiz" page
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -62,7 +69,10 @@ const CoursesPage = () => {
             <div key={course.id} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-40 mb-4">
                 <img src={course.image} alt={course.name} className="w-full h-full object-cover" />
-                <button className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-lg">
+                <button
+                  onClick={handlePlayClick}
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white rounded-lg"
+                >
                   <FaPlayCircle size={40} />
                 </button>
               </div>
