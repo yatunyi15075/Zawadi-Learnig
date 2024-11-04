@@ -1,19 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { increaseFontSize, decreaseFontSize, resetFontSize } from './fontSizeManager';
+import { enableTextToSpeech, disableTextToSpeech } from './textToSpeech';
+import ColorContrastOptions from './ColorContrastOptions';
+import AI_Assistant from './AI_Assistant';
+import CameraComponent from './CameraComponent';
+import EmotionDetection from './EmotionDetection'; // Import the Emotion Detection component
 
 const AccessibilitySettings = () => {
   const [settings, setSettings] = useState({
     soundToText: true,
-    readTextAloud: true,
+    readTextAloud: false,
     adjustFontSize: false,
     colorContrast: true,
     soundToGesture: true,
     aiAssistant: false,
-    cameraOnWhenStudying: true,
+    cameraOnWhenStudying: false,
   });
 
-  const [transcribedText, setTranscribedText] = useState(''); // To display the converted text
-  const [showText, setShowText] = useState(false); // To control when to display text
+  const [transcribedText, setTranscribedText] = useState('');
+  const [showText, setShowText] = useState(false);
+  const [colorScheme, setColorScheme] = useState({
+    background: 'white',
+    text: 'black',
+  });
+
+  useEffect(() => {
+    if (settings.readTextAloud) {
+      enableTextToSpeech();
+    } else {
+      disableTextToSpeech();
+    }
+
+    return () => {
+      disableTextToSpeech();
+    };
+  }, [settings.readTextAloud]);
 
   const handleToggle = (setting) => {
     setSettings((prevSettings) => ({
@@ -26,33 +48,27 @@ const AccessibilitySettings = () => {
     }
   };
 
-  // Function to capture audio and send it for conversion
   const handleSoundToText = () => {
     if (!settings.soundToText) return;
 
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = 'en-US';
-    recognition.interimResults = false; // We only want final results, not partial ones
+    recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
     recognition.start();
 
     recognition.onresult = async (event) => {
       const audioText = event.results[0][0].transcript;
-      console.log('Captured Text:', audioText);
-
-      // Show the transcribed text for 3 seconds
       setTranscribedText(audioText);
       setShowText(true);
 
-      // After 3 seconds, hide the text
       setTimeout(() => {
         setShowText(false);
         setTranscribedText('');
       }, 3000);
 
       try {
-        // Optionally send the text to the backend for further processing
         const response = await axios.post('http://localhost:5001/api/sound-to-text', { text: audioText });
         console.log('Backend response:', response.data);
       } catch (error) {
@@ -69,8 +85,12 @@ const AccessibilitySettings = () => {
     };
   };
 
+  const handleSelectColorScheme = (colors) => {
+    setColorScheme(colors);
+  };
+
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6" style={{ backgroundColor: colorScheme.background, color: colorScheme.text }}>
       <header className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">AI Accessibility Features & Settings</h1>
         <div className="flex items-center">
@@ -84,8 +104,12 @@ const AccessibilitySettings = () => {
           <div key={index} className="flex justify-between items-center py-2 border-b last:border-b-0">
             <span className="text-gray-700 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
             <div className="flex items-center">
-              {key === 'adjustFontSize' && (
-                <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded mr-4">T</span>
+              {key === 'adjustFontSize' && settings.adjustFontSize && (
+                <div className="flex space-x-2 mr-4">
+                  <button onClick={decreaseFontSize} className="bg-gray-200 px-2 py-1 rounded">A-</button>
+                  <button onClick={increaseFontSize} className="bg-gray-200 px-2 py-1 rounded">A+</button>
+                  <button onClick={resetFontSize} className="bg-gray-200 px-2 py-1 rounded">Reset</button>
+                </div>
               )}
               <button
                 onClick={() => handleToggle(key)}
@@ -103,7 +127,10 @@ const AccessibilitySettings = () => {
           </div>
         ))}
 
-        {/* Display transcribed text */}
+        {settings.colorContrast && (
+          <ColorContrastOptions onSelectColorScheme={handleSelectColorScheme} />
+        )}
+
         {showText && (
           <div className="mt-4 p-4 bg-gray-200 rounded-md">
             <p className="text-xl">{transcribedText}</p>
@@ -114,6 +141,15 @@ const AccessibilitySettings = () => {
           <button className="bg-purple-500 text-white px-6 py-2 rounded-full">Done</button>
         </div>
       </div>
+
+      {settings.cameraOnWhenStudying && (
+        <>
+          <CameraComponent />
+          <EmotionDetection isActive={settings.cameraOnWhenStudying} />
+        </>
+      )}
+      
+      <AI_Assistant />
     </div>
   );
 };

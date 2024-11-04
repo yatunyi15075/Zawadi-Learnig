@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Register from './auth/register';
@@ -17,8 +16,7 @@ import Logout from './pages/LogOut'
 import Forum from './pages/Forum';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-import VideoQuiz from './pages/VideoQuiz';
-
+import VideoQuiz from './pages/VideoQuiz'; // Use VideoQuiz here
 import './index.css';
 
 function App() {
@@ -33,6 +31,7 @@ function App() {
         {/* Routes with the sidebar */}
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path="video-quiz/:videoId" element={<VideoQuiz />} /> {/* Update this route */}
           <Route path="courses" element={<CoursesPage />} />
           <Route path="assignments" element={<AssignmentPage />} />
           <Route path="profile" element={<Profile />} />
@@ -43,7 +42,6 @@ function App() {
           <Route path="settings" element={<AccessibilitySettings />} />
           <Route path="support" element={<HelpSupport />} />
           <Route path="logout" element={<Logout />} />
-          <Route path="video-quiz" element={<VideoQuiz />} /> 
           <Route path="complete" element={<CongratulationsPage />} />  
         </Route>
       </Routes>
