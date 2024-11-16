@@ -28,6 +28,7 @@ const LandingPage = () => {
           <a href="#team" className="text-gray-600 hover:text-gray-900">Team</a>
           <a href="#pricing" className="text-gray-600 hover:text-gray-900">Pricing</a>
           <a href="#products" className="text-gray-600 hover:text-gray-900">Our Products</a>
+          <a href="#waiting-list" className="text-gray-600 hover:text-gray-900">WaitingList</a>
         </div>
         <div className="space-x-4">
           <a href="/login" className="text-purple-600">Login</a>

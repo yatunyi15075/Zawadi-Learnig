@@ -1,34 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBook, FaCheckSquare } from 'react-icons/fa';
+import axios from 'axios';
 
-const notifications = [
-  {
-    id: 1,
-    icon: <FaBook className="text-black" />,
-    message: 'Your lesson with Brian at 2pm',
-    time: '1 day',
-  },
-  {
-    id: 2,
-    icon: <FaCheckSquare className="text-black" />,
-    message: 'You have math assignment due',
-    time: '2 day',
-  },
-  {
-    id: 3,
-    icon: <FaBook className="text-black" />,
-    message: 'You have earned bronze model',
-    time: '2 day',
-  },
-  {
-    id: 4,
-    icon: <FaCheckSquare className="text-black" />,
-    message: 'You have unlocked new game',
-    time: '6 day',
-  },
-];
+const iconMap = {
+  lesson: <FaBook className="text-black" />,
+  assignment: <FaCheckSquare className="text-black" />,
+};
 
 const Notifications = () => {
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/notifications');
+        setNotifications(response.data);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -37,7 +31,9 @@ const Notifications = () => {
           {notifications.map((notification) => (
             <li key={notification.id} className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <div className="text-2xl">{notification.icon}</div>
+                <div className="text-2xl">
+                  {iconMap[notification.type] || <FaBook className="text-black" />}
+                </div>
                 <div>
                   <p className="text-lg">{notification.message}</p>
                   <p className="text-gray-500 text-sm">({notification.time})</p>

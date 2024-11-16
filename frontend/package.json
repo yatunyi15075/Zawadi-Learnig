@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@daily-co/daily-js": "^0.73.0",
+    "@react-three/drei": "^9.116.0",
+    "@react-three/fiber": "^8.17.10",
     "@teachablemachine/image": "^0.8.5",
     "axios": "^1.7.7",
     "face-api.js": "^0.22.2",

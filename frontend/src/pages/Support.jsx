@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
+import axios from 'axios';
 
 const HelpSupport = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [response, setResponse] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({ name, email, message });
+    try {
+      const res = await axios.post('http://localhost:5000/api/support', { name, email, message });
+      setResponse('Your message has been sent successfully.');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (error) {
+      setResponse('Failed to send the message.');
+      console.error(error);
+    }
   };
 
   return (
@@ -78,6 +88,7 @@ const HelpSupport = () => {
             </button>
           </div>
         </form>
+        {response && <p className="text-center mt-4 text-gray-600">{response}</p>}
       </div>
     </div>
   );

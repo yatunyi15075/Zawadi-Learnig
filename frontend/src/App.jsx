@@ -4,19 +4,20 @@ import Register from './auth/register';
 import Login from './auth/login';
 import Layout from './components/Layout';
 import CoursesPage from './components/Courses';
-import AssignmentPage from './components/Assignments';
-import AccessibilitySettings from './components/AccessibilitySettings';
+import AccessibilitySettings from './components/AccessibilitySettings/AccessibilitySettings'
 import Notifications from './components/Notifications';
 import Progress from './components/Progress';
 import TeacherComments from './components/TeacherComments';
 import CongratulationsPage from './components/CongratulationsPage';
+import LiveClasses from './components/LiveClasses';
+import Camera from './components/Camera';
 
 import HelpSupport from './pages/Support';
 import Logout from './pages/LogOut'
 import Forum from './pages/Forum';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-import VideoQuiz from './pages/VideoQuiz'; // Use VideoQuiz here
+import VideoQuiz from './components/VideoSection/VideoQuiz'
 import './index.css';
 
 function App() {
@@ -33,7 +34,6 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="video-quiz/:videoId" element={<VideoQuiz />} /> {/* Update this route */}
           <Route path="courses" element={<CoursesPage />} />
-          <Route path="assignments" element={<AssignmentPage />} />
           <Route path="profile" element={<Profile />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="teacher-comments" element={<TeacherComments />} />
@@ -42,7 +42,10 @@ function App() {
           <Route path="settings" element={<AccessibilitySettings />} />
           <Route path="support" element={<HelpSupport />} />
           <Route path="logout" element={<Logout />} />
-          <Route path="complete" element={<CongratulationsPage />} />  
+          <Route path="complete" element={<CongratulationsPage />} />
+          <Route path="live-classes" element={<LiveClasses />} /> 
+
+          <Route path="camera" element={<Camera />} /> 
         </Route>
       </Routes>
     </Router>
