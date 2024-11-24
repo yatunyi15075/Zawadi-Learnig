@@ -7,8 +7,8 @@ const Camera = () => {
   const [model, setModel] = useState(null);
   const [predictions, setPredictions] = useState([]);
   const [cameraActive, setCameraActive] = useState(false);
-  const modelURL = 'https://teachablemachine.withgoogle.com/models/TtTb82t3C/model.json'; // Replace with your model URL
-  const metadataURL = 'https://teachablemachine.withgoogle.com/models/TtTb82t3C/metadata.json'; // Replace with your metadata URL
+  const modelURL = 'https://teachablemachine.withgoogle.com/models/7GjTAaWjZ/model.json'; // Replace with your model URL
+  const metadataURL = 'https://teachablemachine.withgoogle.com/models/7GjTAaWjZ/metadata.json'; // Replace with your metadata URL
 
   useEffect(() => {
     const loadModel = async () => {

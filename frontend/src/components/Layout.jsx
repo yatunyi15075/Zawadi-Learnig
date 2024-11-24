@@ -1,7 +1,21 @@
-// src/components/Layout.jsx
 import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { FaTachometerAlt, FaBook, FaTasks, FaComments, FaChartBar, FaUsers, FaCog, FaLifeRing, FaBell, FaUserCircle, FaSignOutAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa'; 
+import {
+  FaTachometerAlt,
+  FaBook,
+  FaDownload,
+  FaTasks,
+  FaComments,
+  FaChartBar,
+  FaUsers,
+  FaCog,
+  FaLifeRing,
+  FaBell,
+  FaUserCircle,
+  FaSignOutAlt,
+  FaChevronDown,
+  FaChevronUp,
+} from 'react-icons/fa';
 import vid2 from '../assets/vid2.png';
 import logo from '../assets/logo.png';
 
@@ -20,7 +34,7 @@ function Layout() {
         </div>
         <div className="flex flex-col items-center py-4">
           <img src={vid2} alt="profile" className="rounded-full w-16 h-16" />
-          <h3 className="mt-2">Hi, Alex</h3> 
+          <h3 className="mt-2">Hi, Alex</h3>
         </div>
         <nav className="flex-grow flex flex-col space-y-4">
           <ul>
@@ -33,9 +47,22 @@ function Layout() {
               <FaBook className="mr-2" />
               <Link to="/dashboard/courses">Courses</Link>
             </li>
+            <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+              <FaDownload className="mr-2" />
+              <Link to="/dashboard/offline-materials">Offline Materials</Link>
+            </li>
+            <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+              <FaTasks className="mr-2" />
+              <Link to="/dashboard/games">Learning Games</Link>
+            </li>
+            <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+              <FaChartBar className="mr-2" />
+              <Link to="/dashboard/video-quiz">Video Quiz</Link>
+            </li>
+
             {/* Classroom Section */}
-            <li 
-              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200" 
+            <li
+              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200"
               onClick={() => setShowClassroom(!showClassroom)}
             >
               <div className="flex items-center">
@@ -54,12 +81,20 @@ function Layout() {
                   <FaComments className="mr-2" />
                   <Link to="/dashboard/teacher-comments">Teacher Comments</Link>
                 </li>
+                <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+                  <FaComments className="mr-2" />
+                  <Link to="/dashboard/communication-tools">Communication Tools</Link>
+                </li>
+                <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+                  <FaUsers className="mr-2" />
+                  <Link to="/dashboard/social-skills">Social Skills</Link>
+                </li>
               </ul>
             )}
 
             {/* Performance Section */}
-            <li 
-              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200" 
+            <li
+              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200"
               onClick={() => setShowPerformance(!showPerformance)}
             >
               <div className="flex items-center">
@@ -81,9 +116,9 @@ function Layout() {
               </ul>
             )}
 
-            {/* Settings and Support Section */}
-            <li 
-              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200" 
+            {/* Settings and Support */}
+            <li
+              className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center justify-between cursor-pointer transition duration-200"
               onClick={() => setShowSettingsSupport(!showSettingsSupport)}
             >
               <div className="flex items-center">
@@ -101,6 +136,10 @@ function Layout() {
                 <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
                   <FaLifeRing className="mr-2" />
                   <Link to="/dashboard/support">Support</Link>
+                </li>
+                <li className="p-2 rounded hover:bg-purple-700 hover:text-white flex items-center transition duration-200">
+                  <FaLifeRing className="mr-2" />
+                  <Link to="/dashboard/calm-corner">Calm Corner</Link>
                 </li>
               </ul>
             )}

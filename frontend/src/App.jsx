@@ -4,20 +4,30 @@ import Register from './auth/register';
 import Login from './auth/login';
 import Layout from './components/Layout';
 import CoursesPage from './components/Courses';
-import AccessibilitySettings from './components/AccessibilitySettings/AccessibilitySettings'
+import AccessibilitySettings from './components/AccessibilitySettings/AccessibilitySettings';
 import Notifications from './components/Notifications';
 import Progress from './components/Progress';
 import TeacherComments from './components/TeacherComments';
 import CongratulationsPage from './components/CongratulationsPage';
 import LiveClasses from './components/LiveClasses';
 import Camera from './components/Camera';
-
 import HelpSupport from './pages/Support';
-import Logout from './pages/LogOut'
+import Logout from './pages/LogOut';
 import Forum from './pages/Forum';
 import Profile from './pages/Profile';
 import Dashboard from './pages/Dashboard';
-import VideoQuiz from './components/VideoSection/VideoQuiz'
+import VideoQuiz from './components/VideoSection/VideoQuiz';
+
+// New feature components
+import VisualSchedule from './components/VisualSchedule';
+import SensoryMode from './components/SensoryMode';
+import SocialSkills from './components/SocialSkills';
+import CalmCorner from './components/CalmCorner';
+import CommunicationTools from './components/CommunicationTools';
+import Collaboration from './components/Collaboration';
+import LearningGames from './components/LearningGames';
+import OfflineMaterials from './components/OfflineMaterials';
+
 import './index.css';
 
 function App() {
@@ -43,9 +53,18 @@ function App() {
           <Route path="support" element={<HelpSupport />} />
           <Route path="logout" element={<Logout />} />
           <Route path="complete" element={<CongratulationsPage />} />
-          <Route path="live-classes" element={<LiveClasses />} /> 
+          <Route path="live-classes" element={<LiveClasses />} />
+          <Route path="camera" element={<Camera />} />
 
-          <Route path="camera" element={<Camera />} /> 
+          {/* New Feature Routes */}
+          <Route path="schedule" element={<VisualSchedule />} />
+          <Route path="sensory-mode" element={<SensoryMode />} />
+          <Route path="social-skills" element={<SocialSkills />} />
+          <Route path="calm-corner" element={<CalmCorner />} />
+          <Route path="communication-tools" element={<CommunicationTools />} />
+          <Route path="collaboration" element={<Collaboration />} />
+          <Route path="games" element={<LearningGames />} />
+          <Route path="offline-materials" element={<OfflineMaterials />} />
         </Route>
       </Routes>
     </Router>
